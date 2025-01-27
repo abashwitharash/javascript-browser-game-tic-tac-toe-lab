@@ -25,7 +25,7 @@ let tie; //represents if the game ended in a tie
 
 
 /*------------------------ Cached Element References ------------------------*/
-const squareEl = document.querySelectorAll('.sqr');
+const squareEls = document.querySelectorAll('.sqr');
 
 const messageEl = document.querySelector('#message');
 
@@ -33,23 +33,36 @@ const messageEl = document.querySelector('#message');
 
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
-    board = ['','','','','','','','',''];
+    board = ['X','','O','','','','','',''];
     turn = 'X';
-    winner = 'false';
-    tie = "false";
-
+    winner = false;
+    tie = false;
 }
+
+
+
+
 const render = () => {
-        
+updateMessage();
+updateBoard();
 }
 
-const updateBoard = () => 
+
+const updateBoard = () => {
     board.forEach((cell, idx) => {
-        console.log();
-        squareEl[idx].textContent = cell;
+        if (cell === 'X') {
+            squareEls[idx].textContent = "X";
+        } else if (cell === 'O') {
+            squareEls[idx].textContent = 'O';
+        } else {
+            squareEls[idx].textContent = '';
+        }
     });
-    
+};
+
+
+
 /*----------------------------- Event Listeners -----------------------------*/
-
-
+init();
+render();
 
