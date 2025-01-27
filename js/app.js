@@ -18,20 +18,37 @@
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-let board;  //represents the state of the squares on the board
+let board;  //represents the state of the squares on the board STEP 1
 let turn; //tracking whos turn it is
 let winner; //represents if anyone has won 
 let tie; //represents if the game ended in a tie 
 
 
 /*------------------------ Cached Element References ------------------------*/
+const squareEl = document.querySelectorAll('.sqr');
+
+const messageEl = document.querySelector('#message');
 
 
 
 /*-------------------------------- Functions --------------------------------*/
+const init = () => {
+    board = ['','','','','','','','',''];
+    turn = 'X';
+    winner = 'false';
+    tie = "false";
 
+}
+const render = () => {
+        
+}
 
-
+const updateBoard = () => 
+    board.forEach((cell, idx) => {
+        console.log();
+        squareEl[idx].textContent = cell;
+    });
+    
 /*----------------------------- Event Listeners -----------------------------*/
 
 
