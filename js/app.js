@@ -60,6 +60,24 @@ const updateBoard = () => {
     });
 };
 
+const updateMessage = () => {
+    if (!winner && !tie) {
+      if (turn === 'X') {
+        messageEl.textContent = "It's X's turn";
+      } else {
+        messageEl.textContent = "It's O's turn";
+      }
+    } else if (!winner && tie) {
+        messageEl.textContent = "Tie game!"
+    } else {
+        if (turn === X) {
+            messageEl.textContent = "X wins the game!"
+        } else {
+            messageEl.textContent = "O wins the game!"
+        }
+        }
+    };
+
 
 
 /*----------------------------- Event Listeners -----------------------------*/
