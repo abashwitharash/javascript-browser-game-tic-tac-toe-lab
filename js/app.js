@@ -32,20 +32,12 @@ const messageEl = document.querySelector('#message');
 
 
 /*-------------------------------- Functions --------------------------------*/
-const init = () => {
-    board = ['X','','O','','','','','',''];
-    turn = 'X';
-    winner = false;
-    tie = false;
-}
-
-
 
 
 const render = () => {
 updateMessage();
 updateBoard();
-}
+};
 
 
 const updateBoard = () => {
@@ -70,7 +62,7 @@ const updateMessage = () => {
     } else if (!winner && tie) {
         messageEl.textContent = "Tie game!"
     } else {
-        if (turn === X) {
+        if (turn === 'X') {
             messageEl.textContent = "X wins the game!"
         } else {
             messageEl.textContent = "O wins the game!"
@@ -79,18 +71,55 @@ const updateMessage = () => {
     };
 
     const winningCombos = [
-        [0, 1, 2], // Top row
-        [3, 4, 5], // Middle row
-        [6, 7, 8], // Bottom row
-        [0, 3, 6], // Left column
-        [1, 4, 7], // Middle column
-        [2, 5, 8], // Right column
-        [0, 4, 8], // Diagonal from top-left to bottom-right
-        [2, 4, 6]  // Diagonal from top-right to bottom-left
+        [0, 1, 2], 
+        [3, 4, 5], 
+        [6, 7, 8], 
+        [0, 3, 6], 
+        [2, 5, 8], 
+        [0, 4, 8], 
+        [2, 4, 6]  
       ];
+
+      
       
 
 /*----------------------------- Event Listeners -----------------------------*/
+
+const handleClick = (evt) => {
+    const sqrIdx = evt.target.id;
+    const squareIsFull = board[sqrIdx] !== '';
+    if (squareIsFull || winner) {
+      return;
+    }
+    placePiece(sqrIdx);
+    checkForWinner();
+    render();
+  };
+  
+  const init = () => {
+    board = ['','','','','','','','','']
+    ;
+    turn = 'X';
+    winner = false;
+    tie = false;
+    squareEls.forEach(square => {
+        square.addEventListener('click', handleClick);
+})};
+
+const placePiece = (sqrIdx) => {
+    board[sqrIdx] = turn;
+}
+
+const checkForWinner = () => {
+    winningCombos.forEach(combo => {
+        const [a, b, c] = combo;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            winner = board[a];  
+        }
+    });
+};
+
+
+
 init();
 render();
-
