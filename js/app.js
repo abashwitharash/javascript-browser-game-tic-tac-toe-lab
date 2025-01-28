@@ -1,21 +1,3 @@
-//1) Define the required variables used to track the state of the game.
-
-//2) Store cached element references.
-
-//3) Upon loading, the game state should be initialized, and a function should 
-//   be called to render this game state.
-
-//4) The state of the game should be rendered to the user.
-
-//5) Define the required constants.
-
-//6) Handle a player clicking a square with a `handleClick` function.
-
-//7) Create Reset functionality.
-
-/*-------------------------------- Constants --------------------------------*/
-
-
 
 /*---------------------------- Variables (state) ----------------------------*/
 let board;  //represents the state of the squares on the board STEP 1
@@ -26,7 +8,7 @@ let tie; //represents if the game ended in a tie
 
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll('.sqr');
-
+const resetBtnEl = document.querySelector('#reset');
 const messageEl = document.querySelector('#message');
 
 
@@ -85,26 +67,36 @@ const updateMessage = () => {
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-const handleClick = (evt) => {
-    const sqrIdx = evt.target.id;
+const handleClick = (event) => {
+    const sqrIdx = event.target.id;
     const squareIsFull = board[sqrIdx] !== '';
     if (squareIsFull || winner) {
       return;
     }
     placePiece(sqrIdx);
     checkForWinner();
+    checkForTie();
+    switchPlayerTurn();
     render();
   };
   
   const init = () => {
-    board = ['','','','','','','','','']
-    ;
+    board = ['', '', '', '', '', '', '', '', ''];
     turn = 'X';
     winner = false;
     tie = false;
-    squareEls.forEach(square => {
-        square.addEventListener('click', handleClick);
-})};
+    render();
+  };
+  
+  init();
+  
+  /*----------------------------- Event Listeners -----------------------------*/
+  
+  squareEls.forEach((square) => {
+    square.addEventListener('click', handleClick);
+  });
+  resetBtnEl.addEventListener('click', init);
+  
 
 const placePiece = (sqrIdx) => {
     board[sqrIdx] = turn;
@@ -120,11 +112,21 @@ const checkForWinner = () => {
 };
 
 const checkForTie = () => {
-    if (winner) {
-        return;
+    if (!board.includes('') && !winner) {
+        tie = true;
     }
-}
+};
 
+const switchPlayerTurn = () => {
+    if (winner === true) {
+        return;
+    } if (winner === false) {
+        if (turn === 'X') {
+            turn = 'O';
+        } else {
+            turn = 'X'
+        }
+    }}
 
 
 init();
