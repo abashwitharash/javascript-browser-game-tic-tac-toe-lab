@@ -119,6 +119,12 @@ const checkForWinner = () => {
     });
 };
 
+const checkForTie = () => {
+    if (winner) {
+        return;
+    }
+}
+
 
 
 init();
